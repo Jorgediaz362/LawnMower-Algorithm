@@ -5,4 +5,4 @@ Group members:
 
 Jorge Diaz jorgediaz@csu.fullerton.edu
 
-Charles Babbage charlesbab@csu.fullerton.edu
+Jacqueline Isabel Cardenas jacisac@csu.fullerton.edu
