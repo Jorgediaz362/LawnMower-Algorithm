@@ -3,6 +3,6 @@ Alternating disks: light-dark
 
 Group members:
 
-Ada Lovelace adalovelace@csu.fullerton.edu
+Jorge Diaz jorgediaz@csu.fullerton.edu
 
 Charles Babbage charlesbab@csu.fullerton.edu
