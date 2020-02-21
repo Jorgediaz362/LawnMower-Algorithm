@@ -1,13 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 // disks.hpp
-//
-// Definitions for two algorithms that each solve the 
-// alternating disks problem.
-//
-// As provided, this header has four functions marked with 
-// TODO comments.
-// You need to write in your own implementation of these 
-// functions.
+// Jorge & Jacqueline
+// Project 1
+// CPSC 335
+// 20 February 2020
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -95,27 +91,27 @@ public:
   // that the first disk at index 0 is light, the second disk at index 1
   // is dark, and so on for the entire row of disks.
   bool is_alternating() const {
-	  for(size_t i = 0; i < _colors.size(); i++){
-		  if(i % 2 == 0){
-			  if(_colors[i] != DISK_LIGHT)
-				  return false;
-		  }
-		  else
-			  if(_colors[i] != DISK_DARK)
-				  return false;
-	  }
-	  return true;
+	for(size_t i = 0; i < _colors.size(); i++){
+		if(i % 2 == 0){
+			if(_colors[i] != DISK_LIGHT)
+				return false;
+		}
+		else
+			if(_colors[i] != DISK_DARK)
+				return false;
+	}
+	return true;
   }
 
   // Return true when this disk_state is fully sorted, with all light disks
   // on the left (low indices) and all dark disks on the right (high
   // indices).
   bool is_sorted() const {
-	  for(size_t i = 0; i < _colors.size()/2; i++){
-		  if(_colors[i] != DISK_LIGHT)
-			  return false;
-	  }
-    return true;
+	for(size_t i = 0; i < _colors.size()/2; i++){
+		if(_colors[i] != DISK_LIGHT)
+			return false;
+	}
+   return true;
   }
 };
 
@@ -165,11 +161,28 @@ sorted_disks sort_left_to_right(const disk_state& before) {
 
 // Algorithm that sorts disks using the lawnmower algorithm.
 sorted_disks sort_lawnmower(const disk_state& before) {
-  // TODO: Write code for this function, including rewriting the return
-  // statement, and then delete these comments.
   // check that the input is in alternating format
-  assert(before.is_alternating());
-
-  // TODO
-  return sorted_disks(before, 0);
+	assert(before.is_alternating());
+	auto disk = before;  
+	size_t swap = 0, run = 1, size = disk.total_count(), previous;
+	while(run <= (size/2)){	
+		previous = 0;
+		for(size_t i = 1 ; i < size; i++){
+			if(disk.get(previous) == DISK_DARK && disk.get(i) == DISK_LIGHT){
+				disk.swap(previous);
+				swap++;
+			}
+			previous = i;
+		}
+		previous = (size - 1);
+		for(size_t k = size - 2; k >= 1; k--){
+			if(disk.get(previous) == DISK_LIGHT && disk.get(k) == DISK_DARK){
+				disk.swap(k);
+				swap++;
+			}
+			previous = k;
+		}
+		run++;
+	}
+  return sorted_disks(disk,swap);
 }
