@@ -146,13 +146,21 @@ public:
 
 // Algorithm that sorts disks using the left-to-right algorithm.
 sorted_disks sort_left_to_right(const disk_state& before) {
-  // TODO: Write code for this function, including rewriting the return
-  // statement, and then delete these comments.
-
-  // check that the input is in alternating format  
-  assert(before.is_alternating());
-  
-  return sorted_disks(before, 0);
+	assert(before.is_alternating());  
+	auto disk = before;  
+	size_t swap = 0, run = 1, size = disk.total_count(), previous;
+	while(run <= size){	
+		previous = 0;
+		for(size_t i = 1 ; i < size; i++){
+			if(disk.get(previous) == DISK_DARK && disk.get(i) == DISK_LIGHT){
+				disk.swap(previous);
+				swap++;
+			}
+			previous = i;
+		}
+		run++;
+	}
+	return sorted_disks(disk, swap);
 }
 
 // Algorithm that sorts disks using the lawnmower algorithm.
